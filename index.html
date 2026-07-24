@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jason Nguyen — Software Engineer</title>
+<meta name="description" content="Jason Nguyen — Software Engineer building backend systems, mobile apps, and the APIs that connect them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0D10;
+    --bg-elevated:#14171C;
+    --bg-elevated-2:#191D23;
+    --text-primary:#ECE8E1;
+    --text-secondary:#9098A4;
+    --text-tertiary:#5A616D;
+    --accent:#DCE1E7;
+    --accent-soft:rgba(220,225,231,0.12);
+    --accent-dim:#8A9099;
+    --border:#22262C;
+    --border-soft:#1A1D22;
+    --serif:'Fraunces', Georgia, serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    background:var(--bg);
+    color:var(--text-primary);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:var(--accent-soft); color:var(--accent);}
+
+  a{color:inherit; text-decoration:none;}
+
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(11,13,16,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  nav{
+    max-width:920px;
+    margin:0 auto;
+    padding:20px 32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .nav-mark{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-primary);
+    letter-spacing:0.02em;
+  }
+  .nav-mark span{color:var(--accent);}
+  .nav-links{
+    display:flex;
+    gap:32px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-secondary);
+  }
+  .nav-links a{
+    position:relative;
+    padding:4px 0;
+    transition:color 0.25s ease;
+  }
+  .nav-links a:hover{color:var(--text-primary);}
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    bottom:0; left:0;
+    width:0; height:1px;
+    background:var(--accent);
+    transition:width 0.3s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  @media (max-width:640px){
+    .nav-links{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:80px;
+    overflow:hidden;
+  }
+
+  #graph-canvas{
+    position:absolute;
+    top:0; right:-8%;
+    width:62%;
+    height:100%;
+    opacity:0.55;
+    pointer-events:none;
+  }
+  @media (max-width:820px){
+    #graph-canvas{opacity:0.28; width:100%; right:0;}
+  }
+
+  .hero-top{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:22px;
+    position:relative;
+    z-index:2;
+  }
+
+  .avatar{
+    width:60px;
+    height:60px;
+    flex-shrink:0;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:var(--bg-elevated);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    box-shadow:0 0 0 4px rgba(220,225,231,0.04);
+  }
+  .avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .avatar span{
+    font-family:var(--serif);
+    font-size:19px;
+    font-weight:500;
+    color:var(--accent);
+    letter-spacing:0.01em;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--accent);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:0;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:6px; height:6px;
+    background:var(--accent);
+    border-radius:50%;
+    box-shadow:0 0 8px var(--accent);
+  }
+
+  h1.name{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(42px, 7vw, 74px);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    max-width:780px;
+    position:relative;
+    z-index:2;
+  }
+  h1.name em{
+    font-style:italic;
+    font-weight:400;
+    color:var(--accent);
+  }
+
+  .tagline{
+    margin-top:24px;
+    font-size:clamp(16px, 2vw, 19px);
+    color:var(--text-secondary);
+    max-width:560px;
+    font-weight:400;
+    position:relative;
+    z-index:2;
+  }
+
+  .hero-links{
+    margin-top:40px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    position:relative;
+    z-index:2;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    padding:12px 22px;
+    border-radius:6px;
+    border:1px solid var(--border);
+    transition:all 0.25s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--text-primary);
+    color:var(--bg);
+    border-color:var(--text-primary);
+  }
+  .btn-primary:hover{
+    background:var(--accent);
+    border-color:var(--accent);
+    transform:translateY(-1px);
+  }
+  .btn-ghost{
+    color:var(--text-secondary);
+  }
+  .btn-ghost:hover{
+    color:var(--text-primary);
+    border-color:var(--text-tertiary);
+    transform:translateY(-1px);
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:36px; left:32px;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-tertiary);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .scroll-cue .line{
+    width:28px; height:1px;
+    background:var(--text-tertiary);
+    animation:pulse-line 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse-line{
+    0%,100%{opacity:0.4; width:28px;}
+    50%{opacity:1; width:40px;}
+  }
+  @media (max-width:640px){ .scroll-cue{display:none;} }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{
+    padding:120px 0;
+    border-top:1px solid var(--border-soft);
+  }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:56px;
+  }
+  .section-num{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--accent);
+  }
+  .section-title{
+    font-family:var(--serif);
+    font-size:clamp(26px, 3.4vw, 34px);
+    font-weight:500;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-body{
+    font-size:17px;
+    color:var(--text-secondary);
+    max-width:640px;
+  }
+  .about-body p + p{margin-top:18px;}
+  .about-body strong{color:var(--text-primary); font-weight:500;}
+
+  .facts{
+    margin-top:48px;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--border-soft);
+    border:1px solid var(--border-soft);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .fact{
+    background:var(--bg);
+    padding:22px 20px;
+  }
+  .fact-label{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-tertiary);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:8px;
+  }
+  .fact-value{
+    font-size:14.5px;
+    color:var(--text-primary);
+  }
+  @media (max-width:640px){
+    .facts{grid-template-columns:1fr;}
+  }
+
+  /* ---------- WORK / PROJECTS ---------- */
+  .project{
+    padding:32px 0;
+    border-top:1px solid var(--border-soft);
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:32px;
+  }
+  .project:first-of-type{border-top:none;}
+  .project-year{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-tertiary);
+    padding-top:4px;
+  }
+  .project-name{
+    font-family:var(--serif);
+    font-size:22px;
+    font-weight:500;
+    margin-bottom:10px;
+    transition:color 0.25s ease;
+  }
+  .project-desc{
+    color:var(--text-secondary);
+    font-size:15px;
+    max-width:520px;
+    margin-bottom:18px;
+  }
+  .stack-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .chip{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--accent);
+    background:var(--accent-soft);
+    padding:5px 10px;
+    border-radius:4px;
+    border:1px solid rgba(201,168,118,0.18);
+  }
+  @media (max-width:640px){
+    .project{grid-template-columns:1fr; gap:8px;}
+  }
+
+  /* ---------- EXPERIENCE ---------- */
+  .job{
+    padding:28px 0;
+    border-top:1px solid var(--border-soft);
+    display:grid;
+    grid-template-columns:1fr 2fr;
+    gap:24px;
+  }
+  .job:first-of-type{border-top:none;}
+  .job-org-block .role{
+    font-family:var(--serif);
+    font-size:19px;
+    font-weight:500;
+    margin-bottom:4px;
+  }
+  .job-org-block .org{
+    color:var(--text-secondary);
+    font-size:14px;
+  }
+  .job-org-block .period{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-tertiary);
+    margin-top:8px;
+  }
+  .job-points{
+    list-style:none;
+  }
+  .job-points li{
+    position:relative;
+    padding-left:18px;
+    color:var(--text-secondary);
+    font-size:14.5px;
+    margin-bottom:10px;
+  }
+  .job-points li::before{
+    content:'—';
+    position:absolute;
+    left:0;
+    color:var(--accent-dim);
+  }
+  @media (max-width:640px){
+    .job{grid-template-columns:1fr;}
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:36px 48px;
+  }
+  .skill-group-title{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:14px;
+  }
+  .skill-list{
+    color:var(--text-secondary);
+    font-size:14.5px;
+    line-height:1.9;
+  }
+  @media (max-width:640px){
+    .skills-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{
+    padding:100px 0 60px;
+  }
+  .contact-title{
+    font-family:var(--serif);
+    font-size:clamp(32px, 5vw, 52px);
+    font-weight:500;
+    line-height:1.1;
+    max-width:600px;
+  }
+  .contact-title em{font-style:italic; color:var(--accent); font-weight:400;}
+  .contact-sub{
+    margin-top:18px;
+    color:var(--text-secondary);
+    font-size:16px;
+    max-width:480px;
+  }
+  .contact-links{
+    margin-top:44px;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    border-top:1px solid var(--border-soft);
+  }
+  .contact-link{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 4px;
+    border-bottom:1px solid var(--border-soft);
+    transition:padding-left 0.25s ease, color 0.25s ease;
+  }
+  .contact-link:hover{
+    padding-left:12px;
+    color:var(--accent);
+  }
+  .contact-link .label{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-tertiary);
+  }
+  .contact-link .value{
+    font-size:16px;
+  }
+  .contact-link .arrow{
+    font-family:var(--mono);
+    color:var(--text-tertiary);
+    transition:transform 0.25s ease;
+  }
+  .contact-link:hover .arrow{
+    transform:translateX(4px);
+    color:var(--accent);
+  }
+  .foot-meta{
+    margin-top:60px;
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-tertiary);
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  /* reveal on scroll */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="nav-mark">jason<span>.</span>nguyen</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <canvas id="graph-canvas"></canvas>
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="avatar">
+        <!-- Replace this span with: <img src="profile.jpg" alt="Jason Nguyen"> -->
+        <span>JN</span>
+      </div>
+      <div class="eyebrow">Available for opportunities</div>
+    </div>
+    <h1 class="name">Jason Nguyen<br>builds <em>backend systems</em><br>that hold up.</h1>
+    <p class="tagline">Software engineer working across C#/.NET services, React Native apps, and the APIs that connect them — currently based in Seattle, WA.</p>
+    <div class="hero-links">
+      <a class="btn btn-primary" href="#work">View work</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      <a class="btn btn-ghost" href="mailto:ngbaoduy203263@gmail.com">Resume →</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="line"></span> scroll</div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">About</h2>
+    </div>
+    <div class="about-body reveal">
+      <p>I'm a software engineer based in Seattle, focused on building backend services and mobile features that hold up under real usage — not just in a demo. Recent work spans <strong>C#/.NET microservices</strong>, a production <strong>React Native</strong> app shipped to hundreds of users, and AI-assisted tooling that speeds up how teams build and ship.</p>
+      <p>I graduated from Bellevue College with a B.A.S. in Software Development. Before that, I spent years running operations and data analysis for a multi-location business — which is where I picked up a habit of shipping things that move a number, not just things that look finished.</p>
+    </div>
+    <div class="facts reveal">
+      <div class="fact">
+        <div class="fact-label">Based in</div>
+        <div class="fact-value">Seattle, WA</div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Focus</div>
+        <div class="fact-value">Backend systems &amp; mobile</div>
+      </div>
+      <div class="fact">
+        <div class="fact-label">Education</div>
+        <div class="fact-value">B.A.S. Software Dev, Bellevue College</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Selected work</h2>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-year">2024</div>
+      <div>
+        <div class="project-name">Fantasy Sports Microservices Platform</div>
+        <p class="project-desc">A C# Team Service microservice handling data storage and access for a fantasy sports platform, with REST endpoints designed, documented, and tested via Swagger inside an Agile workflow.</p>
+        <div class="stack-row">
+          <span class="chip">C#</span>
+          <span class="chip">ASP.NET Core</span>
+          <span class="chip">Azure SQL</span>
+          <span class="chip">Entity Framework Core</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-year">2024</div>
+      <div>
+        <div class="project-name">VibeHive Social Platform</div>
+        <p class="project-desc">Secure backend services with JWT authentication and role-based access control, using gRPC for service-to-service communication and integrating into a React Native client alongside the front-end team.</p>
+        <div class="stack-row">
+          <span class="chip">ASP.NET Core</span>
+          <span class="chip">JWT</span>
+          <span class="chip">gRPC</span>
+          <span class="chip">React Native</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-year">2025</div>
+      <div>
+        <div class="project-name">Resume Scanner &amp; Job Matching System</div>
+        <p class="project-desc">Backend services built on AI/NLP models for resume parsing and job-compatibility scoring, automating how candidates get matched to roles.</p>
+        <div class="stack-row">
+          <span class="chip">AI / NLP</span>
+          <span class="chip">Python</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+
+    <div class="job reveal">
+      <div class="job-org-block">
+        <div class="role">Software Engineer</div>
+        <div class="org">Tirivelo Inc. · Remote, Toronto</div>
+        <div class="period">Dec 2024 – Jun 2025</div>
+      </div>
+      <ul class="job-points">
+        <li>Shipped 10+ iterations of mobile app features in React Native and TypeScript within a 5-person Agile team</li>
+        <li>Integrated 20 AI-powered APIs with backend and AI engineers, delivering predictive features to 300+ users</li>
+        <li>Used AI coding assistants to accelerate feature development and cut debugging time</li>
+        <li>Improved app usability through responsive UI work, reducing load time and crash rate by 20%</li>
+        <li>Contributed to cloud infrastructure supporting 1,000+ users across 30 releases</li>
+      </ul>
+    </div>
+
+    <div class="job reveal">
+      <div class="job-org-block">
+        <div class="role">Multi-Unit Manager &amp; Data Analyst</div>
+        <div class="org">The Coppers LLC — Sunright Studio · Seattle, WA</div>
+        <div class="period">2023 – Present</div>
+      </div>
+      <ul class="job-points">
+        <li>Used SQL and AI-assisted analytics to analyze sales, labor, and inventory data across 3 locations</li>
+        <li>Built KPI dashboards with data visualization, improving reporting speed by 10–12%</li>
+        <li>Managed inventory and labor scheduling for a team of 30, reducing labor cost by 20%</li>
+        <li>Implemented data-driven pricing and staffing strategies that increased revenue 5% over 6 months</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div>
+        <div class="skill-group-title">Languages</div>
+        <div class="skill-list">C#, Java, Python, SQL, JavaScript, TypeScript</div>
+      </div>
+      <div>
+        <div class="skill-group-title">Frameworks &amp; APIs</div>
+        <div class="skill-list">ASP.NET Core, React Native, REST APIs, Entity Framework Core, gRPC, JWT Authentication</div>
+      </div>
+      <div>
+        <div class="skill-group-title">Databases &amp; Cloud</div>
+        <div class="skill-list">Azure, Azure SQL, SQL Server</div>
+      </div>
+      <div>
+        <div class="skill-group-title">Tools</div>
+        <div class="skill-list">Git, GitHub, Docker, Swagger, VS Code</div>
+      </div>
+      <div>
+        <div class="skill-group-title">Data &amp; Analytics</div>
+        <div class="skill-list">SQL Querying, KPI Reporting, Data Visualization, Excel</div>
+      </div>
+      <div>
+        <div class="skill-group-title">Foundations</div>
+        <div class="skill-list">Data Structures, Storage Systems, Cloud Infrastructure</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2 class="contact-title reveal">Let's build something <em>reliable</em> together.</h2>
+    <p class="contact-sub reveal">Open to software engineering roles — backend, mobile, or full-stack. Reach out any of these ways.</p>
+    <div class="contact-links reveal">
+      <a class="contact-link" href="mailto:ngbaoduy203263@gmail.com">
+        <span><span class="label">EMAIL</span><br><span class="value">ngbaoduy203263@gmail.com</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="contact-link" href="https://linkedin.com/in/jason" target="_blank" rel="noopener">
+        <span><span class="label">LINKEDIN</span><br><span class="value">linkedin.com/in/jason</span></span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="contact-link" href="https://github.com/jason" target="_blank" rel="noopener">
+        <span><span class="label">GITHUB</span><br><span class="value">github.com/jason</span></span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <div class="foot-meta">
+      <span>© 2026 Jason Nguyen</span>
+      <span>Seattle, WA</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.12});
+  revealEls.forEach(el => io.observe(el));
+
+  // Hero node graph — quiet ambient animation representing services passing data
+  const canvas = document.getElementById('graph-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], edges = [];
+  const labels = ['.NET', 'gRPC', 'React Native', 'Azure', 'REST', 'Swagger'];
+
+  function resize(){
+    const rect = canvas.getBoundingClientRect();
+    W = canvas.width = rect.width * devicePixelRatio;
+    H = canvas.height = rect.height * devicePixelRatio;
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+  }
+
+  function initGraph(){
+    const rect = canvas.getBoundingClientRect();
+    const cw = rect.width, ch = rect.height;
+    nodes = labels.map((label, i) => {
+      const angle = (i / labels.length) * Math.PI * 2;
+      const r = Math.min(cw, ch) * 0.32;
+      return {
+        x: cw/2 + Math.cos(angle) * r + (Math.random()-0.5)*40,
+        y: ch/2 + Math.sin(angle) * r + (Math.random()-0.5)*40,
+        label,
+        phase: Math.random() * Math.PI * 2
+      };
+    });
+    edges = [];
+    for(let i=0;i<nodes.length;i++){
+      edges.push([i, (i+1) % nodes.length]);
+    }
+    edges.push([0,2],[1,4],[3,5]);
+  }
+
+  let t = 0;
+  function draw(){
+    const rect = canvas.getBoundingClientRect();
+    ctx.clearRect(0,0,rect.width, rect.height);
+    t += 0.006;
+
+    // edges
+    ctx.lineWidth = 1;
+    edges.forEach(([a,b], idx) => {
+      const n1 = nodes[a], n2 = nodes[b];
+      ctx.strokeStyle = 'rgba(201,168,118,0.16)';
+      ctx.beginPath();
+      ctx.moveTo(n1.x, n1.y);
+      ctx.lineTo(n2.x, n2.y);
+      ctx.stroke();
+
+      // traveling packet
+      const speed = 0.15 + (idx % 3) * 0.05;
+      const p = (t * speed + idx * 0.3) % 1;
+      const px = n1.x + (n2.x - n1.x) * p;
+      const py = n1.y + (n2.y - n1.y) * p;
+      ctx.beginPath();
+      ctx.arc(px, py, 2, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(201,168,118,0.9)';
+      ctx.fill();
+    });
+
+    // nodes
+    nodes.forEach(n => {
+      const pulse = Math.sin(t*2 + n.phase) * 0.5 + 0.5;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 3 + pulse*1.5, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(236,232,225,0.5)';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 7 + pulse*2, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgba(201,168,118,0.25)';
+      ctx.stroke();
+
+      ctx.font = '11px JetBrains Mono, monospace';
+      ctx.fillStyle = 'rgba(144,152,164,0.55)';
+      ctx.fillText(n.label, n.x + 12, n.y + 4);
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  function setup(){
+    resize();
+    initGraph();
+  }
+  window.addEventListener('resize', setup);
+  setup();
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!prefersReduced){
+    requestAnimationFrame(draw);
+  } else {
+    // Draw a single static frame
+    draw = (function(){ let done=false; return function(){ if(done) return; done=true;
+      const rect = canvas.getBoundingClientRect();
+      ctx.clearRect(0,0,rect.width, rect.height);
+      edges.forEach(([a,b]) => {
+        const n1 = nodes[a], n2 = nodes[b];
+        ctx.strokeStyle = 'rgba(201,168,118,0.16)';
+        ctx.beginPath(); ctx.moveTo(n1.x,n1.y); ctx.lineTo(n2.x,n2.y); ctx.stroke();
+      });
+      nodes.forEach(n => {
+        ctx.beginPath(); ctx.arc(n.x,n.y,3,0,Math.PI*2); ctx.fillStyle='rgba(236,232,225,0.5)'; ctx.fill();
+        ctx.font = '11px JetBrains Mono, monospace';
+        ctx.fillStyle = 'rgba(144,152,164,0.55)';
+        ctx.fillText(n.label, n.x + 12, n.y + 4);
+      });
+    };})();
+    draw();
+  }
+</script>
+
+</body>
+</html>
