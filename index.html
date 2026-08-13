@@ -334,6 +334,47 @@
     .facts{grid-template-columns:1fr;}
   }
 
+  .photo-strip{
+    margin-top:32px;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:14px;
+  }
+  .photo-strip figure{
+    aspect-ratio:4/5;
+    border-radius:6px;
+    overflow:hidden;
+    border:1px solid var(--border-soft);
+    background:var(--bg-elevated);
+    position:relative;
+  }
+  .photo-strip img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    filter:grayscale(20%) contrast(1.04);
+    transition:transform 0.4s ease, filter 0.4s ease;
+  }
+  .photo-strip figure:hover img{
+    transform:scale(1.03);
+    filter:grayscale(0%) contrast(1.04);
+  }
+  .photo-strip .placeholder{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-tertiary);
+    letter-spacing:0.06em;
+  }
+  @media (max-width:640px){
+    .photo-strip{grid-template-columns:1fr 1fr;}
+  }
+
   /* ---------- WORK / PROJECTS ---------- */
   .project{
     padding:32px 0;
@@ -545,7 +586,7 @@
   <div class="wrap">
     <div class="hero-top">
       <div class="avatar">
-        <img src="profile.jpg" alt="Jason Nguyen">
+        <img src="photo-2.jpg" alt="Jason Nguyen">
       </div>
       <div class="eyebrow">Available for opportunities</div>
     </div>
@@ -583,6 +624,14 @@
         <div class="fact-label">Education</div>
         <div class="fact-value">B.A.S. Software Dev, Bellevue College</div>
       </div>
+    </div>
+    <div class="photo-strip reveal">
+      <figure>
+        <img src="photo-1.jpg" alt="Jason Nguyen">
+      </figure>
+      <figure>
+        <img src="photo-2.jpg" alt="Jason Nguyen">
+      </figure>
     </div>
   </div>
 </section>
@@ -718,11 +767,11 @@
         <span><span class="label">EMAIL</span><br><span class="value">ngbaoduy203263@gmail.com</span></span>
         <span class="arrow">→</span>
       </a>
-      <a class="contact-link" href="https://www.linkedin.com/public-profile/settings/?trk=d_flagship3_profile_self_view_public_profile&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3B9f8VgkvMSoefxtofpEEfOQ%3D%3D" target="_blank" rel="noopener">
+      <a class="contact-link" href="https://linkedin.com/in/jason" target="_blank" rel="noopener">
         <span><span class="label">LINKEDIN</span><br><span class="value">linkedin.com/in/jason</span></span>
         <span class="arrow">→</span>
       </a>
-      <a class="contact-link" href="https://github.com/Duy203" target="_blank" rel="noopener">
+      <a class="contact-link" href="https://github.com/jason" target="_blank" rel="noopener">
         <span><span class="label">GITHUB</span><br><span class="value">github.com/jason</span></span>
         <span class="arrow">→</span>
       </a>
